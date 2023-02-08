@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: first
-        working-directory: img
+        working-directory: ..
         run: pwd
       - run: ls
       - name: second
