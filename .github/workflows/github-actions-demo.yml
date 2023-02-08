@@ -1,0 +1,38 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - firstdancer-patch-1
+jobs:
+  Actions-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }} 
+  Actions-2:
+    needs: Actions-1
+    strategy:
+      matrix:
+        os: [ X64, ARM64 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files in the repository 22222
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."\
+  Actions-3:
+    needs: Actions-1
+    strategy:
+      matrix:
+        os: [ X64, ARM64 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files in the repository 33333
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
