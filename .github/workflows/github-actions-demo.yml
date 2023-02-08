@@ -15,7 +15,10 @@ jobs:
         run: |
           ls ${{ github.workspace }} 
   Actions-2:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ X64, ARM64 ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: List files in the repository 22222
         run: |
