@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print events
-        run: echo  ${{ toJSON(github.event) }}
+        run: echo "${{ toJSON(github.event) }}"
 #   Actions-1:
 #     runs-on: ubuntu-latest
 #     steps:
