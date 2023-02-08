@@ -15,12 +15,24 @@ jobs:
         run: |
           ls ${{ github.workspace }} 
   Actions-2:
+    needs: Actions-1
     strategy:
       matrix:
         os: [ X64, ARM64 ]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: List files in the repository 22222
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."\
+  Actions-3:
+    needs: Actions-1
+    strategy:
+      matrix:
+        os: [ X64, ARM64 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files in the repository 33333
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
