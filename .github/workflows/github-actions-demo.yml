@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: first
-        working-directory: .github
+        working-directory: img
         run: pwd
+      - run: ls
       - name: second
         run: pwd
 #   Actions-1:
