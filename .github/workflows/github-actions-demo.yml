@@ -2,6 +2,9 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - firstdancer-patch-1
 jobs:
   Actions-1:
     runs-on: ubuntu-latest
