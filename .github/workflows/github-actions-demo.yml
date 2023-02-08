@@ -2,41 +2,79 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+        - info
+        - warning
+        - debug 
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true 
+        type: boolean 
+      tags:
+        description: 'Test scenario tags'
+        required: true 
+        type: string
+      fakeTags:
+        description: 'Test scenario fake tags'
+        required: false 
+        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true 
   issues:
     types:
       - opened
 jobs:
-  Actions-1:
+  print-tag:
     runs-on: ubuntu-latest
+    if:  ${{ inputs.print_tags }} 
     steps:
-      - run: echo "url, ${{ github.event.issue.html_url }}"
-      - run: echo "token, ${{ secrets.GITHUB_TOKEN }}"
-      - run: echo "branch, ${{ secrets.GITHUB_REF }}"
-      - run: echo "hash, ${{ secrets.GITHUB_SHA }}"
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }} 
-  Actions-2:
-    needs: Actions-1
-    strategy:
-      matrix:
-        os: [ X64, ARM64 ]
+      - name: Print the input tag to STDOUT
+        run: echo  The tags are ${{ inputs.tags }} 
+  print-fake-tag:
     runs-on: ubuntu-latest
+    if:  ${{ !inputs.print_tags }} 
     steps:
-      - name: List files in the repository 22222
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."\
-  Actions-3:
-    needs: Actions-1
-    strategy:
-      matrix:
-        os: [ X64, ARM64 ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: List files in the repository 33333
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Print the input fake tag to STDOUT
+        run: echo  The tags are ${{ inputs.fakeTags }} 
+#   Actions-1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "url, ${{ github.event.issue.html_url }}"
+#       - run: echo "token, ${{ secrets.GITHUB_TOKEN }}"
+#       - run: echo "branch, ${{ secrets.GITHUB_REF }}"
+#       - run: echo "hash, ${{ secrets.GITHUB_SHA }}"
+#       - name: Check out repository code
+#         uses: actions/checkout@v3
+#       - name: List files in the repository
+#         run: |
+#           ls ${{ github.workspace }} 
+#   Actions-2:
+#     needs: Actions-1
+#     strategy:
+#       matrix:
+#         os: [ X64, ARM64 ]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: List files in the repository 22222
+#         run: |
+#           ls ${{ github.workspace }}
+#       - run: echo "🍏 This job's status is ${{ job.status }}."\
+#   Actions-3:
+#     needs: Actions-1
+#     strategy:
+#       matrix:
+#         os: [ X64, ARM64 ]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: List files in the repository 33333
+#         run: |
+#           ls ${{ github.workspace }}
+#       - run: echo "🍏 This job's status is ${{ job.status }}."
