@@ -2,10 +2,17 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   workflow_dispatch:
+  issues:
+    types:
+      - opened
 jobs:
   Actions-1:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "url, ${{ github.event.issue.html_url }}"
+      - run: echo "token, ${{ secrets.GITHUB_TOKEN }}"
+      - run: echo "branch, ${{ secrets.GITHUB_REF }}"
+      - run: echo "hash, ${{ secrets.GITHUB_SHA }}"
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: List files in the repository
