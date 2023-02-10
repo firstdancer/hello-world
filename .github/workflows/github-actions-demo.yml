@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: firstdancer/docker-container-action-demo@v2
+        uses: firstdancer/docker-container-action-demo@v1
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
